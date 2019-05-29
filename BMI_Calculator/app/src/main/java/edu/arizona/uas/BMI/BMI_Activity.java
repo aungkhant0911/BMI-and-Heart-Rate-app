@@ -33,15 +33,14 @@ public class BMI_Activity extends AppCompatActivity {
 
         btn_clear.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                lbl_bmi_val.setText("");
-                lbl_bmi_lvl.setText("");
+                lbl_bmi_val.setText(null);
+                lbl_bmi_lvl.setText(null);
 
                 edit_height_in.setText(null);
                 edit_height_ft.setText(null);
                 edit_weight.setText(null);
             }
         });
-
 
         btn_calc.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -56,13 +55,27 @@ public class BMI_Activity extends AppCompatActivity {
             }
         });
 
-
         btn_heart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(BMI_Activity.this, HeartRate_Activity.class));
             }
         });
+
+        if (savedInstanceState != null) {
+            lbl_bmi_lvl.setText(savedInstanceState.getString("bmi_lvl"));
+            lbl_bmi_val.setText(savedInstanceState.getString("bmi_val"));
+        }
     }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString("bmi_val", lbl_bmi_val.getText().toString());
+        savedInstanceState.putString("bmi_lvl", lbl_bmi_lvl.getText().toString());
+    }
+
+
 
     /**
      *  Retrieve and assign all widgets
