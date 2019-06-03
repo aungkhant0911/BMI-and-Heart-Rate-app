@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 public class ListFragment extends Fragment {
     RecyclerView recycler;
 
@@ -24,6 +23,7 @@ public class ListFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,9 +35,9 @@ public class ListFragment extends Fragment {
         return v;
     }
 
+
     private void updateUI() {
         MyAdapter adapter = new MyAdapter(GlucoseHistory.histories, getFragmentManager(), getLayoutInflater());
         recycler.setAdapter(adapter);
     }
-
 }

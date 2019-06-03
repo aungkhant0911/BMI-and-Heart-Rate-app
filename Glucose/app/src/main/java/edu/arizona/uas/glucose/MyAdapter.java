@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     List<Glucose> histories;
     FragmentManager manager;
@@ -29,11 +30,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         return new MyViewHolder(layoutInflater, manager, parent);
     }
 
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Glucose glucose = histories.get(position);
         holder.bindData(glucose);
     }
+
 
     @Override
     public int getItemCount() {

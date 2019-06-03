@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-
 import java.util.Date;
 
 
@@ -26,8 +25,8 @@ public class DetailFragment extends Fragment {
     EditText edit_fasting, edit_breakfast, edit_lunch, edit_dinner, edit_note;
     CheckBox chk_normal;
     Button btn_save, btn_clear, btn_history, btn_date;
-
     Date date;
+
 
     public DetailFragment() {
         date = new Date();
@@ -44,7 +43,7 @@ public class DetailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                                                    Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_detail, container, false);
         assignAllWidgetRefs(v);
@@ -55,9 +54,7 @@ public class DetailFragment extends Fragment {
 
         if(glucose != null) {
             setVals();
-
         }
-
         return v;
     }
 
@@ -73,7 +70,6 @@ public class DetailFragment extends Fragment {
         edit_note.setText(String.valueOf(glucose.note));
         chk_normal.setChecked(glucose.normal);
     }
-
 
 
     private void assignAllWidgetRefs(View v) {
@@ -94,6 +90,7 @@ public class DetailFragment extends Fragment {
         btn_save = (Button) v.findViewById(R.id.btn_save);
     }
 
+
     private void setClearButtonAction() {
         btn_clear.setOnClickListener((v)->{
             lbl_date.setText(null);
@@ -107,6 +104,7 @@ public class DetailFragment extends Fragment {
             chk_normal.setChecked(false);
         });
     }
+
 
     private void setSaveButtonAction() {
        btn_save.setOnClickListener((v)->{
@@ -131,6 +129,7 @@ public class DetailFragment extends Fragment {
             lbl_date.setText(date.toString());
         });
     }
+
 
     private void setHistoryButtonAction() {
 

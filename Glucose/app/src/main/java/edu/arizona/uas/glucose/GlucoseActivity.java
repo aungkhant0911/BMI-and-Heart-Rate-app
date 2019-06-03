@@ -13,9 +13,9 @@ public class GlucoseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_glucose);
 
         GlucoseHistory.buildSampleHistories();
-
         FragmentManager manager = getSupportFragmentManager();
         Fragment fragment = manager.findFragmentById(R.id.fragment_container);
+
         if (fragment == null) {
             fragment = new DetailFragment();
             manager.beginTransaction()
