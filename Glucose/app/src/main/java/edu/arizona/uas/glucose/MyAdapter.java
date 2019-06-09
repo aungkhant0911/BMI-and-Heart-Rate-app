@@ -18,6 +18,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     FragmentManager manager;
     LayoutInflater layoutInflater;
 
+
     public MyAdapter(List<Glucose> histories, FragmentManager manager, LayoutInflater layoutInflater) {
         this.histories = histories;
         this.manager = manager;
@@ -66,12 +67,14 @@ class MyViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListe
         chk_normal = (CheckBox) itemView.findViewById(R.id.chk_normal);
     }
 
+
     public void bindData(Glucose glucose) {
         data = glucose;
         lbl_date.setText(data.date.toString());
         lbl_average_glucose.setText(String.valueOf(data.average));
         chk_normal.setChecked(data.normal);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -81,13 +84,7 @@ class MyViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListe
         DetailFragment detailFrag = new DetailFragment();
         detailFrag.setArguments(arg);
 
-        FragmentTransaction transaction = manager.beginTransaction();
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.fragment_container, detailFrag);
-        transaction.addToBackStack(null);
-        // Commit the transaction
-        transaction.commit();
+       GlucoseActivity.replaceActivityFragment(detailFrag);
     }
 }
 

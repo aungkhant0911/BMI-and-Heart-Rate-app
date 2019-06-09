@@ -41,6 +41,7 @@ public class DetailFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                                     Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class DetailFragment extends Fragment {
         }
         return v;
     }
+
 
     private void setVals() {
         lbl_date.setText(glucose.date.toString());
@@ -134,17 +136,7 @@ public class DetailFragment extends Fragment {
     private void setHistoryButtonAction() {
 
         btn_history.setOnClickListener((v)->{
-            ListFragment lstFrag = new ListFragment();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            // Replace whatever is in the fragment_container view with this fragment,
-            // and add the transaction to the back stack so the user can navigate back
-            transaction.replace(R.id.fragment_container, lstFrag);
-            transaction.addToBackStack(null);
-            // Commit the transaction
-            transaction.commit();
-
+            GlucoseActivity.replaceActivityFragment(new ListFragment());
         });
     }
-
-
 }
