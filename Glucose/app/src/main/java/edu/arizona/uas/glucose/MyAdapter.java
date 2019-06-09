@@ -15,20 +15,18 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     List<Glucose> histories;
-    FragmentManager manager;
     LayoutInflater layoutInflater;
 
 
     public MyAdapter(List<Glucose> histories, FragmentManager manager, LayoutInflater layoutInflater) {
         this.histories = histories;
-        this.manager = manager;
         this.layoutInflater = layoutInflater;
     }
 
 
     @Override
     public MyViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
-        return new MyViewHolder(layoutInflater, manager, parent);
+        return new MyViewHolder(layoutInflater, parent);
     }
 
 
@@ -54,14 +52,12 @@ class MyViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListe
     private TextView lbl_date, lbl_average_glucose;
     private CheckBox chk_normal;
     private Glucose data;
-    private FragmentManager manager;
     private final String key = "daily_glucose";
 
 
-    public MyViewHolder(LayoutInflater inflater, FragmentManager manager, ViewGroup parent) {
+    public MyViewHolder(LayoutInflater inflater, ViewGroup parent) {
         super(inflater.inflate(R.layout.item_snapshot, parent, false));
         itemView.setOnClickListener(this);
-        this.manager = manager;
         lbl_date = (TextView) itemView.findViewById(R.id.lbl_date);
         lbl_average_glucose = (TextView) itemView.findViewById(R.id.lbl_average_glucose);
         chk_normal = (CheckBox) itemView.findViewById(R.id.chk_normal);
@@ -78,13 +74,13 @@ class MyViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Bundle arg = new Bundle();
+       /* Bundle arg = new Bundle();
         arg.putSerializable(key, data);
 
         DetailFragment detailFrag = new DetailFragment();
         detailFrag.setArguments(arg);
-
-       GlucoseActivity.replaceActivityFragment(detailFrag);
+ */
+       GlucoseActivity.replaceActivityFragment(new MyViewPagerFragment());
     }
 }
 
