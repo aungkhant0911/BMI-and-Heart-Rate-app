@@ -18,7 +18,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     LayoutInflater layoutInflater;
 
 
-    public MyAdapter(List<Glucose> histories, FragmentManager manager, LayoutInflater layoutInflater) {
+    public MyAdapter(List<Glucose> histories, LayoutInflater layoutInflater) {
         this.histories = histories;
         this.layoutInflater = layoutInflater;
     }
@@ -74,13 +74,9 @@ class MyViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListe
 
     @Override
     public void onClick(View v) {
-       /* Bundle arg = new Bundle();
-        arg.putSerializable(key, data);
-
-        DetailFragment detailFrag = new DetailFragment();
-        detailFrag.setArguments(arg);
- */
-       GlucoseActivity.replaceActivityFragment(new MyViewPagerFragment());
+        MyViewPagerFragment pagerFrag = new MyViewPagerFragment();
+        pagerFrag.setCurrentItemPosition(getAdapterPosition());
+       GlucoseActivity.replaceActivityFragment(pagerFrag);
     }
 }
 

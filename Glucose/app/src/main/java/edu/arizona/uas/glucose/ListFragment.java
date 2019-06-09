@@ -37,7 +37,8 @@ public class ListFragment extends Fragment {
 
 
     private void updateUI() {
-        MyAdapter adapter = new MyAdapter(GlucoseHistory.histories, getFragmentManager(), getLayoutInflater());
+        MyAdapter adapter = new MyAdapter(GlucoseHistory.histories, getLayoutInflater());
         recycler.setAdapter(adapter);
     }
+
 }

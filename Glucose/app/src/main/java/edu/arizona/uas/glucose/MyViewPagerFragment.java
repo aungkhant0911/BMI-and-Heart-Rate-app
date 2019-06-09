@@ -13,10 +13,15 @@ import android.view.ViewGroup;
 public class MyViewPagerFragment extends Fragment {
 
     private final String key = "daily_glucose";
+    private int  item_position_to_show;
 
 
     public MyViewPagerFragment() {
-        // Required empty public constructor
+        item_position_to_show = 0;
+    }
+
+    public void setCurrentItemPosition(int item_position_to_show) {
+        this.item_position_to_show = item_position_to_show;
     }
 
     @Override
@@ -32,7 +37,6 @@ public class MyViewPagerFragment extends Fragment {
         ViewPager mViewPager = (ViewPager) v.findViewById(R.id.my_view_pager);
 
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
-
             @Override
             public Fragment getItem(int i) {
                 Glucose data = GlucoseHistory.histories.get(i);
@@ -40,6 +44,7 @@ public class MyViewPagerFragment extends Fragment {
                 arg.putSerializable(key, data);
 
                 DetailFragment detailFrag = new DetailFragment();
+                detailFrag.setPagerAdapter(mViewPager.getAdapter());
                 detailFrag.setArguments(arg);
 
                 return detailFrag;
@@ -50,10 +55,7 @@ public class MyViewPagerFragment extends Fragment {
                 return GlucoseHistory.histories.size();
             }
         });
-
+        mViewPager.setCurrentItem(item_position_to_show);
         return v;
-
     }
-
-
 }

@@ -3,6 +3,7 @@ package edu.arizona.uas.glucose;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,9 @@ public class DetailFragment extends Fragment {
     CheckBox chk_normal;
     Button btn_save, btn_clear, btn_history, btn_date;
     Date date;
+
+    PagerAdapter pga;
+
 
 
     public DetailFragment() {
@@ -117,13 +121,18 @@ public class DetailFragment extends Fragment {
                    Integer.valueOf(edit_dinner.getText().toString()),
                    date,
                    edit_note.getText().toString());
-
+            System.out.println("DDDDDDDDDDDDDDDDD");
            GlucoseHistory.addNewHistory(newglucose);
+           pga.notifyDataSetChanged();
            glucose = newglucose;
            setVals();
         });
     }
 
+
+      public void setPagerAdapter(PagerAdapter pga) {
+        this.pga = pga;
+      }
 
     private void setDateButtonAction() {
         btn_date.setOnClickListener((v)->{
