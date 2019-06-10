@@ -30,10 +30,6 @@ public class DetailFragment extends Fragment {
     Button btn_save, btn_clear, btn_history;
     Date date;
 
-    PagerAdapter pga;
-
-
-
     public DetailFragment() {
         date = new Date();
     }
@@ -153,21 +149,14 @@ public class DetailFragment extends Fragment {
                    date,
                    edit_note.getText().toString());
            GlucoseHistory.addNewHistory(newglucose);
-           pga.notifyDataSetChanged();
+           MyViewPagerFragment.getPagerAdapter().notifyDataSetChanged();
            glucose = newglucose;
            setVals();
         });
     }
 
 
-      public void setPagerAdapter(PagerAdapter pga) {
-        this.pga = pga;
-      }
-
-
-
     private void setHistoryButtonAction() {
-
         btn_history.setOnClickListener((v)->{
             GlucoseActivity.replaceActivityFragment(new ListFragment());
         });

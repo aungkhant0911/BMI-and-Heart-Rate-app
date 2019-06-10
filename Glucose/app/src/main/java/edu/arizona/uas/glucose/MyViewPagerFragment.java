@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ public class MyViewPagerFragment extends Fragment {
 
     private final String key = "daily_glucose";
     private int  item_position_to_show;
+    private static PagerAdapter adapter;
 
 
     public MyViewPagerFragment() {
@@ -35,6 +37,7 @@ public class MyViewPagerFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_my_view_pager, container, false);
         ViewPager mViewPager = (ViewPager) v.findViewById(R.id.my_view_pager);
+        System.out.println("MY ADAPTER" + adapter);
 
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
@@ -44,10 +47,7 @@ public class MyViewPagerFragment extends Fragment {
                 arg.putSerializable(key, data);
 
                 DetailFragment detailFrag = new DetailFragment();
-                detailFrag.setPagerAdapter(mViewPager.getAdapter());
-
                 detailFrag.setArguments(arg);
-
                 return detailFrag;
             }
 
@@ -56,7 +56,12 @@ public class MyViewPagerFragment extends Fragment {
                 return GlucoseHistory.histories.size();
             }
         });
+        adapter = mViewPager.getAdapter();
         mViewPager.setCurrentItem(item_position_to_show);
         return v;
+    }
+
+    public static PagerAdapter getPagerAdapter(){
+        return adapter;
     }
 }
