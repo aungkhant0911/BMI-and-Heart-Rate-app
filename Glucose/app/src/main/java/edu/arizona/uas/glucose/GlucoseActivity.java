@@ -20,7 +20,7 @@ public class GlucoseActivity extends AppCompatActivity {
         Fragment fragment = manager.findFragmentById(R.id.fragment_container);
 
         if (fragment == null) {
-            fragment = new DetailFragment();
+            fragment = new MyViewPagerFragment();
             manager.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit();

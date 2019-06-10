@@ -21,9 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="#D9A3E4"
+            android:hint='"Choose Date"'
             android:paddingTop="5dp"
             android:shadowColor="#E788F7"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColorHint="#0526DF" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -192,15 +194,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:includeFontPadding="false"
-                android:text="FIll Date"
-                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/btn_history"

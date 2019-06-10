@@ -45,6 +45,7 @@ public class MyViewPagerFragment extends Fragment {
 
                 DetailFragment detailFrag = new DetailFragment();
                 detailFrag.setPagerAdapter(mViewPager.getAdapter());
+
                 detailFrag.setArguments(arg);
 
                 return detailFrag;

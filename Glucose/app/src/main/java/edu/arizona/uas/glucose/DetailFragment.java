@@ -1,5 +1,6 @@
 package edu.arizona.uas.glucose;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,13 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 public class DetailFragment extends Fragment {
@@ -25,7 +27,7 @@ public class DetailFragment extends Fragment {
     TextView lbl_date, lbl_all_status;
     EditText edit_fasting, edit_breakfast, edit_lunch, edit_dinner, edit_note;
     CheckBox chk_normal;
-    Button btn_save, btn_clear, btn_history, btn_date;
+    Button btn_save, btn_clear, btn_history;
     Date date;
 
     PagerAdapter pga;
@@ -54,12 +56,13 @@ public class DetailFragment extends Fragment {
         assignAllWidgetRefs(v);
         setClearButtonAction();
         setSaveButtonAction();
-        setDateButtonAction();
         setHistoryButtonAction();
+        setDatePickerAction();
 
         if(glucose != null) {
             setVals();
         }
+
         return v;
     }
 
@@ -91,10 +94,38 @@ public class DetailFragment extends Fragment {
         chk_normal = (CheckBox) v.findViewById(R.id.chk_normal);
 
         btn_clear = (Button) v.findViewById(R.id.btn_clear);
-        btn_date = (Button) v.findViewById(R.id.btn_date);
         btn_history = (Button) v.findViewById(R.id.btn_history);
         btn_save = (Button) v.findViewById(R.id.btn_save);
     }
+
+
+    private void setDatePickerAction() {
+        lbl_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // calender class's instance and get current date , month and year from calender
+                final Calendar c = new GregorianCalendar();
+                c.setTime(glucose.date);
+                int mYear = c.get(Calendar.YEAR); // current year
+                int mMonth = c.get(Calendar.MONTH); // current month
+                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                // date picker dialog
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // set day of month , month and year value in the edit text
+                                date = new GregorianCalendar(year, monthOfYear, dayOfMonth).getTime();
+                                lbl_date.setText(date.toString());
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+    }
+
 
 
     private void setClearButtonAction() {
@@ -121,7 +152,6 @@ public class DetailFragment extends Fragment {
                    Integer.valueOf(edit_dinner.getText().toString()),
                    date,
                    edit_note.getText().toString());
-            System.out.println("DDDDDDDDDDDDDDDDD");
            GlucoseHistory.addNewHistory(newglucose);
            pga.notifyDataSetChanged();
            glucose = newglucose;
@@ -134,12 +164,6 @@ public class DetailFragment extends Fragment {
         this.pga = pga;
       }
 
-    private void setDateButtonAction() {
-        btn_date.setOnClickListener((v)->{
-            date = new Date();
-            lbl_date.setText(date.toString());
-        });
-    }
 
 
     private void setHistoryButtonAction() {

@@ -170,15 +170,6 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_date"
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:layout_weight="1"
-                android:includeFontPadding="false"
-                android:text="FIll Date"
-                android:textAllCaps="false" />
-
-            <Button
                 android:id="@+id/btn_save"
                 android:layout_width="wrap_content"
                 android:layout_height="34dp"
