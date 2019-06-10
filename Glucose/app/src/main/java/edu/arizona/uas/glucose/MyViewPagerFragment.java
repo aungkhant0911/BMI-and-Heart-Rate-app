@@ -15,8 +15,6 @@ public class MyViewPagerFragment extends Fragment {
 
     private final String key = "daily_glucose";
     private int  item_position_to_show;
-    private static PagerAdapter adapter;
-
 
     public MyViewPagerFragment() {
         item_position_to_show = 0;
@@ -37,7 +35,6 @@ public class MyViewPagerFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_my_view_pager, container, false);
         ViewPager mViewPager = (ViewPager) v.findViewById(R.id.my_view_pager);
-        System.out.println("MY ADAPTER" + adapter);
 
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
@@ -56,12 +53,7 @@ public class MyViewPagerFragment extends Fragment {
                 return GlucoseHistory.histories.size();
             }
         });
-        adapter = mViewPager.getAdapter();
         mViewPager.setCurrentItem(item_position_to_show);
         return v;
-    }
-
-    public static PagerAdapter getPagerAdapter(){
-        return adapter;
     }
 }

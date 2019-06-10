@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class DetailFragment extends Fragment {
     CheckBox chk_normal;
     Button btn_save, btn_clear, btn_history;
     Date date;
+    ViewPager container;
 
     public DetailFragment() {
         date = new Date();
@@ -48,6 +50,8 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                                     Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        this.container  = (ViewPager) container;
+
         View v = inflater.inflate(R.layout.fragment_detail, container, false);
         assignAllWidgetRefs(v);
         setClearButtonAction();
@@ -148,8 +152,9 @@ public class DetailFragment extends Fragment {
                    Integer.valueOf(edit_dinner.getText().toString()),
                    date,
                    edit_note.getText().toString());
+
            GlucoseHistory.addNewHistory(newglucose);
-           MyViewPagerFragment.getPagerAdapter().notifyDataSetChanged();
+           container.getAdapter().notifyDataSetChanged();
            glucose = newglucose;
            setVals();
         });
