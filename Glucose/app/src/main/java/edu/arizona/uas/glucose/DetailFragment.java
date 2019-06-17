@@ -16,9 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.support.v4.app.Fragment;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 
 public class DetailFragment extends Fragment {
@@ -29,11 +27,11 @@ public class DetailFragment extends Fragment {
     EditText edit_fasting, edit_breakfast, edit_lunch, edit_dinner, edit_note;
     CheckBox chk_normal;
     Button btn_save, btn_clear, btn_history;
-    Date date;
+    MyDate date;
     ViewPager container;
 
     public DetailFragment() {
-        date = new Date();
+        date = new MyDate(new Date());
     }
 
 
@@ -101,14 +99,10 @@ public class DetailFragment extends Fragment {
 
     private void setDatePickerAction() {
         lbl_date.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                // calender class's instance and get current date , month and year from calender
-                final Calendar c = new GregorianCalendar();
-                c.setTime(glucose.date);
-                int mYear = c.get(Calendar.YEAR); // current year
-                int mMonth = c.get(Calendar.MONTH); // current month
-                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+
                 // date picker dialog
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
                         new DatePickerDialog.OnDateSetListener() {
@@ -117,10 +111,10 @@ public class DetailFragment extends Fragment {
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
-                                date = new GregorianCalendar(year, monthOfYear, dayOfMonth).getTime();
+                                date = new MyDate(dayOfMonth, monthOfYear, year);
                                 lbl_date.setText(date.toString());
                             }
-                        }, mYear, mMonth, mDay);
+                        }, glucose.date.year, glucose.date.month, glucose.date.day);
                 datePickerDialog.show();
             }
         });

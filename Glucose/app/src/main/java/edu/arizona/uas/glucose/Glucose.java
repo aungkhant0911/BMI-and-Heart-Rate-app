@@ -8,11 +8,11 @@ public class Glucose implements Serializable {
     public int fasting_val,breakfast_val, lunch_val, dinner_val;
     public  String fasting_status, breakfast_status, lunch_status, dinner_status;
     public String note;
-    public Date date;
+    public MyDate date;
     public boolean normal;
     public int average;
 
-    public Glucose(int fasting, int breakfast,  int lunch, int dinner, Date date, String note) {
+    public Glucose(int fasting, int breakfast,  int lunch, int dinner, MyDate date, String note) {
         fasting_val = fasting;
         breakfast_val = breakfast;
         lunch_val = lunch;
@@ -55,7 +55,7 @@ public class Glucose implements Serializable {
 
 
 
-    public Date getSortingCriteria() {
+    public MyDate getSortingCriteria() {
         return date;
     }
 }
