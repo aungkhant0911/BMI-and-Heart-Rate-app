@@ -1,7 +1,6 @@
 package edu.arizona.uas.glucose;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Glucose implements Serializable {
 
@@ -52,8 +51,6 @@ public class Glucose implements Serializable {
         }
         return false;
     }
-
-
 
     public MyDate getSortingCriteria() {
         return date;

@@ -21,6 +21,13 @@ public class MyDate {
         this.year = year;
     }
 
+    public MyDate(String dateStr) {
+        String[] date = dateStr.split("/");
+        day = Integer.valueOf(date[0]);
+        month = Integer.valueOf(date[1]);
+        year = Integer.valueOf(date[2]);
+    }
+
     public String toString() {
         return day + "/" + month + "/" + year;
     }
