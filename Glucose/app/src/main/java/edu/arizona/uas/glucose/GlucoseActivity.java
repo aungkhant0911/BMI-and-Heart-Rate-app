@@ -6,8 +6,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.util.Date;
+
 public class GlucoseActivity extends AppCompatActivity {
     private static FragmentManager manager ;
+    private final String key = "daily_glucose";
 
 
     @Override
@@ -20,12 +23,36 @@ public class GlucoseActivity extends AppCompatActivity {
         Fragment fragment = manager.findFragmentById(R.id.fragment_container);
 
         if (fragment == null) {
-            fragment = new MyViewPagerFragment();
+            fragment = getCorrectFragmentOnActivityBegin();
             manager.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit();
         }
     }
+
+
+    private Fragment getCorrectFragmentOnActivityBegin() {
+
+        Fragment fragment;
+        Glucose glucose = GlucoseHistory.findGlucoseHistoryByDate(new MyDate(new Date()));
+
+        if( glucose == null) {
+
+            Bundle arg = new Bundle();
+            arg.putSerializable(key, glucose);
+            fragment = new DetailFragment();
+            fragment.setArguments(arg);
+
+        }else if(GlucoseHistory.histories.size() <= 0) {
+            fragment = new DetailFragment();
+
+        }else {
+            fragment = new MyViewPagerFragment();
+        }
+
+        return fragment;
+    }
+
 
     public static void replaceActivityFragment(Fragment frag) {
         FragmentTransaction transaction = manager.beginTransaction();

@@ -48,7 +48,11 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                                     Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        this.container  = (ViewPager) container;
+        try {
+            this.container  = (ViewPager) container;
+        } catch (ClassCastException e) {
+            this.container = null;
+        }
 
         View v = inflater.inflate(R.layout.fragment_detail, container, false);
         assignAllWidgetRefs(v);
@@ -59,6 +63,7 @@ public class DetailFragment extends Fragment {
 
         if(glucose != null) {
             setVals();
+            date = glucose.date;
         }
 
         return v;
@@ -102,7 +107,6 @@ public class DetailFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-
                 // date picker dialog
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
                         new DatePickerDialog.OnDateSetListener() {
@@ -111,10 +115,10 @@ public class DetailFragment extends Fragment {
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
-                                date = new MyDate(dayOfMonth, monthOfYear, year);
+                                date = new MyDate(dayOfMonth, monthOfYear + 1, year);
                                 lbl_date.setText(date.toString());
                             }
-                        }, glucose.date.year, glucose.date.month, glucose.date.day);
+                        }, date.year, date.month, date.day);
                 datePickerDialog.show();
             }
         });
@@ -148,7 +152,9 @@ public class DetailFragment extends Fragment {
                    edit_note.getText().toString());
 
            GlucoseHistory.addNewHistory(newglucose);
-           container.getAdapter().notifyDataSetChanged();
+           if(container != null)
+               container.getAdapter().notifyDataSetChanged();
+
            glucose = newglucose;
            setVals();
         });

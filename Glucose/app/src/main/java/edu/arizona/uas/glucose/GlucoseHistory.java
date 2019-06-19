@@ -35,4 +35,13 @@ public class GlucoseHistory {
         //histories.add(new Glucose(77,77,77,77, new MyDate(18,6,2019), "DDDDD"));
         isRead = true;
     }
+
+    public static Glucose findGlucoseHistoryByDate(MyDate date) {
+        for(Glucose history : histories) {
+
+            if(date.toString().equals(history.date.toString()))
+                return history;
+        }
+        return null;
+    }
 }
