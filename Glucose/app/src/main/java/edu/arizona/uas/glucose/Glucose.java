@@ -30,6 +30,7 @@ public class Glucose implements Serializable {
         normal = getNormalStatus();
     }
 
+
     private String getFastingStatus(int val) {
         if( val >= 70 && val <= 99)
             return "Normal";

@@ -14,8 +14,8 @@ public class GlucoseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glucose);
+        GlucoseHistory.initialize(GlucoseActivity.this);
 
-        GlucoseHistory.buildSampleHistories();
         manager = getSupportFragmentManager();
         Fragment fragment = manager.findFragmentById(R.id.fragment_container);
 

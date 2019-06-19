@@ -1,26 +1,38 @@
 package edu.arizona.uas.glucose;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
+import android.content.Context;
 import java.util.List;
+import edu.arizona.uas.glucose.database.GlucoseDatabase;
 
 public class GlucoseHistory {
-    public static List<Glucose>  histories = new ArrayList<>();
-    private static boolean isDoneBuilding = false;
+    public static List<Glucose>  histories ;
+    private static boolean isRead;
 
-    public static  void addNewHistory(Glucose history) {
-        histories.add(history);
+
+    public static  void addNewHistory(Glucose glucose) {
+        for(int i=0; i<histories.size(); i++) {
+            Glucose history = histories.get(i);
+
+            if(history.date.toString().equals(glucose.date.toString())) {
+                histories.set(i, glucose);
+                GlucoseDatabase.updateGlucoseTable(glucose);
+                return;
+            }
+        }
+
+        histories.add(glucose);
+        GlucoseDatabase.insertGlucoseTable(glucose);
         //histories.sort(Comparator.comparing(Glucose::getSortingCriteria).reversed());
     }
 
-    public static void buildSampleHistories() {
-        if(isDoneBuilding)
+
+    public static void initialize(Context context) {
+        if(isRead)
             return;
 
-        histories.add(new Glucose(100,50,59,59, new MyDate(new Date()), "just testing"));
-        histories.add(new Glucose(80,90,90,101, new MyDate(30, 12, 2022), "Another testing for same date"));
-        histories.add(new Glucose(65,65,65,65, new MyDate(30, 5, 2019), "Another testing for same date"));
-        isDoneBuilding = true;
+        GlucoseDatabase.initialize(context);
+        histories = GlucoseDatabase.getAllGlucoseObjects();
+        //histories.add(new Glucose(77,77,77,77, new MyDate(18,6,2019), "DDDDD"));
+        isRead = true;
     }
 }
