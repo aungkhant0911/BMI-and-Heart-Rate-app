@@ -11,20 +11,20 @@ public class MyDate {
         Calendar c = new GregorianCalendar();
         c.setTime(date);
         year = c.get(Calendar.YEAR); // current year
-        month = c.get(Calendar.MONTH); // current month
+        month = c.get(Calendar.MONTH) + 1; // current month
         day = c.get(Calendar.DAY_OF_MONTH); // current day
     }
 
     public MyDate(int day, int month, int year) {
         this.day = day;
-        this.month = month;
+        this.month = month + 1;
         this.year = year;
     }
 
     public MyDate(String dateStr) {
         String[] date = dateStr.split("/");
         day = Integer.valueOf(date[0]);
-        month = Integer.valueOf(date[1]);
+        month = Integer.valueOf(date[1]) + 1; // due to java starting month at 0
         year = Integer.valueOf(date[2]);
     }
 

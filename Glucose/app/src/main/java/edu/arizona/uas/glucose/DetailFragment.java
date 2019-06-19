@@ -61,11 +61,12 @@ public class DetailFragment extends Fragment {
         setHistoryButtonAction();
         setDatePickerAction();
 
+        lbl_date.setText(date.toString());
+
         if(glucose != null) {
             setVals();
             date = glucose.date;
         }
-
         return v;
     }
 
@@ -115,7 +116,7 @@ public class DetailFragment extends Fragment {
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 // set day of month , month and year value in the edit text
-                                date = new MyDate(dayOfMonth, monthOfYear + 1, year);
+                                date = new MyDate(dayOfMonth, monthOfYear, year);
                                 lbl_date.setText(date.toString());
                             }
                         }, date.year, date.month, date.day);
