@@ -1,10 +1,11 @@
 package edu.arizona.uas.glucose;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class MyDate {
+public class MyDate{
      public final  int day, month, year;
 
     public MyDate(Date date) {

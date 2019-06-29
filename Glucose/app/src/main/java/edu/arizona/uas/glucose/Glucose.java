@@ -1,5 +1,8 @@
 package edu.arizona.uas.glucose;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 public class Glucose implements Serializable {
@@ -52,6 +55,27 @@ public class Glucose implements Serializable {
         }
         return false;
     }
+
+
+
+    public String getJsonString() {
+
+        JSONObject json = new JSONObject();
+        try {
+            json.put("fasting", fasting_val);
+            json.put("breakfast", breakfast_val);
+            json.put("lunch", lunch_val);
+            json.put("dinner", dinner_val);
+            json.put("note", note);
+            json.put("date", date);
+        } catch (JSONException e) {
+            System.err.println(e);
+
+        }
+        return json.toString();
+    }
+
+
 
     public MyDate getSortingCriteria() {
         return date;

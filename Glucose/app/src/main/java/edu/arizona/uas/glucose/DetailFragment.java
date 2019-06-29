@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,7 +19,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.support.v4.app.Fragment;
 
+import org.json.JSONObject;
+
 import java.util.Date;
+
+import edu.arizona.uas.glucose.networking.Uploader;
+import edu.arizona.uas.glucose.scheduler.DailyGlucoseTracker;
 
 
 public class DetailFragment extends Fragment {
@@ -38,6 +46,8 @@ public class DetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        setRetainInstance(true);
         if (getArguments() != null) {
             glucose = (Glucose) getArguments().getSerializable("daily_glucose");
         }
@@ -68,6 +78,28 @@ public class DetailFragment extends Fragment {
             date = glucose.date;
         }
         return v;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_detail, menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(glucose != null) {
+            if(item.getItemId() == R.id.btn_menu_add)
+                new Uploader().execute(glucose.getJsonString());
+        }
+
+        if(item.getItemId() == R.id.btn_menu_tracker) {
+            System.out.println("SERVICE is On");
+            DailyGlucoseTracker.setServiceOn(true, getActivity());
+        }
+        return true;
+        //return super.onOptionsItemSelected(item);
     }
 
 
