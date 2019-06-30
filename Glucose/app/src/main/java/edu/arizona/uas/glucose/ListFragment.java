@@ -1,6 +1,7 @@
 package edu.arizona.uas.glucose;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import edu.arizona.uas.glucose.networking.GlucoseWebViewerActivity;
 
 public class ListFragment extends Fragment {
     RecyclerView recycler;
@@ -55,8 +58,18 @@ public class ListFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        GlucoseActivity.replaceActivityFragment(new DetailFragment());
+        if(item.getItemId() ==R.id.btn_menu_add)
+            GlucoseActivity.replaceActivityFragment(new DetailFragment());
+
+        else if(item.getItemId() == R.id.btn_menu_webview)
+            startWebView();;
+
         return true;
         //return super.onOptionsItemSelected(item);
+    }
+
+    private void startWebView() {
+        Intent intent = new Intent(getActivity(), GlucoseWebViewerActivity.class);
+        startActivity(intent);
     }
 }
